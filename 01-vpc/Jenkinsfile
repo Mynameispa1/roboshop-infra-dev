@@ -1,32 +1,41 @@
 pipeline {
     agent {
-    node {
-        label 'Agent-1'
+        node {
+            label 'AGENT-1'
         }
     }
-     options {
-        timeout(time: 1, unit: 'HOURS')
-        disableConcurrentBuilds()       //to run only one build at a time
+    options {
+        ansiColor('xterm')
+        // timeout(time: 1, unit: 'HOURS')
+        // disableConcurrentBuilds()
     }
-  // Build stage
+    parameters {
+        choice(name: 'action', choices: ['apply', 'destroy'], description: 'Pick something')
+    }
+    // build
     stages {
-        stage('Init') { 
+        stage('Init') {
             steps {
                 sh """
-                cd 01-vpc
-                terraform init -reconfigure
+                    cd 01-vpc
+                    terraform init -reconfigure
                 """
             }
         }
-        stage('plan') { 
+        stage('Plan') {
             steps {
-               sh """
-                cd 01-vpc
-                terraform plan
+                sh """
+                    cd 01-vpc
+                    terraform plan
                 """
             }
         }
-        stage('Deploy') { 
+        stage('Deploy') {
+            when {
+                expression { 
+                    params.action == 'apply'
+                }
+            }
             input {
                 message "Should we continue?"
                 ok "Yes, we should."
@@ -37,10 +46,9 @@ pipeline {
             }
             steps {
                 sh """
-                cd 01-vpc
-                terraform apply -auto-approve
+                    cd 01-vpc
+                    terraform apply -auto-approve
                 """
-                // echo 'Success..'
             }
         }
 
