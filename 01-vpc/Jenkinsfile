@@ -4,46 +4,42 @@ pipeline {
         label 'Agent-1'
         }
     }
-
-     environment { 
-        GREETING = 'Hello Pavan'
-    }    
-
      options {
         timeout(time: 1, unit: 'HOURS')
         disableConcurrentBuilds()       #to run only one build at a time
     }
-
-    parameters {
-        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-
-        text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
-
-        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
-
-        choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
-
-        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
-    }
   // Build stage
     stages {
-        stage('Build') { 
+        stage('Init') { 
             steps {
-                echo 'building..'
+                sh """
+                cd 01-vpc
+                terraform init -reconfigure
+                """
             }
         }
-        stage('Test') { 
+        stage('plan') { 
             steps {
-                echo 'Testing..'
+               sh """
+                cd 01-vpc
+                terraform plan
+                """
             }
         }
         stage('Deploy') { 
+            input {
+                message "Should we continue?"
+                ok "Yes, we should."
+                // submitter "alice,bob"
+                // parameters {
+                //     string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+                // }
+            }
             steps {
                 sh """
-                echo "Here I wrote shell script"
-                echo "$GREETING"
-                env
-                """ 
+                cd 01-vpc
+                terraform apply -auto-approve
+                """
                 // echo 'Success..'
             }
         }
