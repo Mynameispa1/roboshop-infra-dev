@@ -4,9 +4,15 @@ pipeline {
         label 'Agent-1'
         }
     }
-     options {
-        timeout(time: 1, unit: 'HOURS')
-        disableConcurrentBuilds()       //to run only one build at a time
+    //  options {
+    //     timeout(time: 1, unit: 'HOURS')
+    //     disableConcurrentBuilds()       //to run only one build at a time
+    // }
+
+    options {
+        ansiColor('xterm')
+        // timeout(time: 1, unit: 'HOURS')
+        // disableConcurrentBuilds()
     }
   // Build stage
     stages {
