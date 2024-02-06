@@ -8,7 +8,7 @@ variable "common_tags" {
 
 variable "tags" {
   default = {
-    Component = "catalogue"
+    Component = "user"
   }
 }
 variable "project_name" {
@@ -27,4 +27,8 @@ variable "zone_id" {
 variable "zone_name" {
   type = string
   default = "pavankumarmuvva.online"
+}
+
+variable "iam_instance_profile" {
+  default = "ShellScriptRoleForRoboshop"
 }

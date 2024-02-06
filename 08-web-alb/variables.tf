@@ -8,7 +8,7 @@ variable "common_tags" {
 
 variable "tags" {
   default = {
-    Component = "catalogue"
+    Component = "web-alb"
   }
 }
 variable "project_name" {
@@ -25,6 +25,6 @@ variable "zone_id" {
 }
 
 variable "zone_name" {
-  type = string
+  type=string
   default = "pavankumarmuvva.online"
 }
