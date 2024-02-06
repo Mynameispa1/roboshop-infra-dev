@@ -1,3 +1,5 @@
+
+
 provider "aws" {
     region = "us-east-1"
 }
@@ -10,3 +12,4 @@ terraform {
     dynamodb_table = "pavan-locking-dev"
   }
 }
+
