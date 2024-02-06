@@ -1,5 +1,5 @@
 module "roboshop" {
-  # source = "../../terraform/terraform-aws-vpc"
+  #source = "../../terraform/terraform-aws-vpc"
   source = "git::https://github.com/Mynameispa1/terraform-aws-vpc.git?ref=main"
   project_name = var.project_name
   environment = var.environment
@@ -15,7 +15,7 @@ module "roboshop" {
   #database subnet
   database_subnets_cidr = var.database_subnets_cidr
 
-   #peering
+  #  #peering
   is_peering_required = var.is_peering_required
 
 }
