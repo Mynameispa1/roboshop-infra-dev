@@ -82,7 +82,7 @@ pipeline {
         }
 
     failure {  
-            echo 'This run is the pipepline get fail...'
+            echo ' This run is the pipepline get fail...'
         }
     success {
         echo 'This run if the pipeline success...'
