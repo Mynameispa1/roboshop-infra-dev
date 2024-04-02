@@ -21,7 +21,7 @@ variable "environment" {
 
 variable "zone_id" {
   type = string
-  default = "Z1024693OKJAW10DDB2X"
+  default = "Z0613049803GNCLR8KQY"
 }
 
 variable "zone_name" {
